@@ -1,1 +1,7 @@
 test.js
+input.txt
+
+#env
+.idea
+.vscode
+.DS_Store
