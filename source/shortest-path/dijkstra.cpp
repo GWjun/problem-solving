@@ -3,12 +3,23 @@
 #include <queue>
 using namespace std;
 
-#define INF 1e9
+const int INF = 1e9;
 
 int n, m, start;
 vector<pair<int, int>> graph[100001];
 int d[100001];
 
+
+/**
+ * ### 최소의 누적거리를 선택하며 갱신
+ *
+ * pq
+ * - param1: 해당 노드까지의 누적 거리
+ * - param2: 탐색할 노드의 번호
+ *
+ * d
+ * - 해당 노드(인덱스)까지의 최소 거리를 나타내는 일차원 배열
+ */
 void dijkstra(int start) {
     priority_queue<pair<int, int> > pq;
 
@@ -22,13 +33,14 @@ void dijkstra(int start) {
 
         if (d[now] < dist) continue;
 
-        for (auto& node : graph[now]) {
-            int cost = dist + node.second;
-            if (cost < d[node.first]) {
-                d[node.first] = cost;
-                pq.push({ -cost, node.first });
+        for (auto& pair : graph[now]) {
+            int cost = dist + pair.second;
+            int next = pair.first;
+            if (cost < d[next]) {
+                d[next] = cost;
+                pq.push({ -cost, next });
             }
-        };
+        }
     }
 }
 
